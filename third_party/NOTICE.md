@@ -1,0 +1,1 @@
+The embedded SDRAM pin mapping in `tangnano20k.cst` comes from the Apache 2.0 [Tang Nano 20K open-toolchain example](https://github.com/Seyviour/sdram-tang-nano-20k-os-example), based on nand2mario's NESTang example. The constraint file was changed to add the audio clock, Pmod signals, and status LEDs and to omit the example's UART and controls.
