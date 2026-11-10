@@ -1,8 +1,10 @@
 # Tang Nano 20K flyover audio filter
 
-This FPGA image filters a mono audio feed for a recorder or livestream. It keeps about 1.024 seconds of audio in reserve so it can recognize a falling aircraft tone and attenuate the part still in the buffer. The filter runs on the Tang Nano 20K at 48 kHz. The Pmod I2S2 supplies the analog input and output.
+## About
 
-**Bench prototype.** The image was built for the GW2AR-18C Tang Nano 20K. The source is simulated. Verify clocking, sound, and suppression on your board before using it for a recording you need to keep private. A faint, unusually slow, or broadband flyover can remain in the output. Other sustained pitch changes can also trigger the filter.
+Aircraft noise in a soundtrack can reveal where it was recorded. Flyover Detector is a Tang Nano 20K FPGA prototype that detects and reduces the falling tones left by propeller aircraft and helicopters. It processes mono audio at 48 kHz and uses a 1.024-second buffer so it can edit the start of a detected flyover before sending the audio to a recorder or livestream. The Digilent Pmod I2S2 supplies the analog input and output.
+
+**Prototype status.** The GW2AR-18C image passed FPGA timing and simulation checks. Physical board testing and suppression tests on real recordings are pending. Faint, unusually slow, or broadband flyovers can remain in the output, and other sustained pitch changes can trigger the filter.
 
 ## Wire the audio module
 
