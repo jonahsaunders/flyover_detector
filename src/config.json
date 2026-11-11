@@ -1,7 +1,9 @@
 {
-  "//": "Adapted from the Tiny Tapeout SKY Verilog template (Apache-2.0).",
+  "//": "Adapted from the Tiny Tapeout SKY Verilog template (Apache-2.0). Use the SKY130 HD 1.5 ns transition limit with a 60% repair margin to keep the 0.6 ns placement target.",
   "PL_TARGET_DENSITY_PCT": 60,
   "CLOCK_PERIOD": 40.69,
+  "MAX_TRANSITION_CONSTRAINT": 1.5,
+  "DESIGN_REPAIR_MAX_SLEW_PCT": 60,
   "PL_RESIZER_HOLD_SLACK_MARGIN": 0.1,
   "GRT_RESIZER_HOLD_SLACK_MARGIN": 0.05,
   "RUN_LINTER": 1,
