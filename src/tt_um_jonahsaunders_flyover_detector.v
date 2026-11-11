@@ -23,8 +23,9 @@ module tt_um_jonahsaunders_flyover_detector (
     reg [8:0] phase;
     reg [23:0] adc_shift, frame_pcm;
     reg dac_data;
+    localparam [2:0] ADC_CAPTURE_PHASE = 3'd6;
     wire [4:0] slot_bit = phase[7:3];
-    wire sample_valid = !reset && phase == 9'd196;
+    wire sample_valid = !reset && phase == {1'b0, 5'd24, ADC_CAPTURE_PHASE + 3'd1};
     wire signed [23:0] playback;
     wire detected, filtering, ready;
     wire [12:0] center;
@@ -48,7 +49,9 @@ module tt_um_jonahsaunders_flyover_detector (
             adc_sync <= {adc_sync[0], ui_in[0]};
             bypass_sync <= {bypass_sync[0], ui_in[1]};
             phase <= phase + 1'b1;
-            if (!phase[8] && phase[2:0] == 3'd3 &&
+            // With the two input flops, phase 6 reads the data sampled
+            // one system clock after the internal rising BCLK edge.
+            if (!phase[8] && phase[2:0] == ADC_CAPTURE_PHASE &&
                 slot_bit != 0 && slot_bit <= 5'd24)
                 adc_shift <= {adc_shift[22:0], adc_sync[1]};
 

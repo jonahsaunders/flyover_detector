@@ -54,7 +54,8 @@ module tb_i2s;
                 end else if (dac_data !== 1'b0)
                     $fatal(1, "Nonzero I2S delay or padding at frame bit %0d", bit_number);
                 @(negedge bclk);
-                #2;
+                // Exercise late ADC data with about 18 ns of setup at BCLK.
+                #145;
                 if (slot_bit < 24)
                     ui_in[0] = bit_number < 32 ? adc_left[23-slot_bit] : adc_right[23-slot_bit];
                 else

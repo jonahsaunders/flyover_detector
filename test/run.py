@@ -32,6 +32,7 @@ def run_test(suite, name, sources, defines=(), arguments=()):
             result.check_returncode()
     except (OSError, subprocess.CalledProcessError) as error:
         ET.SubElement(case, "failure", message=str(error)).text = "".join(output)
+        print(error, flush=True)
     case.set("time", f"{time.monotonic() - start:.3f}")
     ET.SubElement(case, "system-out").text = "".join(output)
     print(f"{name}: {'FAIL' if case.find('failure') is not None else 'PASS'}")
