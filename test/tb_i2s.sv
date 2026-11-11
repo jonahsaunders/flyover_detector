@@ -11,9 +11,13 @@ module tb_i2s;
     wire [7:0] uo_out, uio_out, uio_oe;
     wire mclk = uo_out[0], bclk = uo_out[1], lrclk = uo_out[2];
     wire dac_data = uo_out[3], detected = uo_out[4], filtering = uo_out[5], ready = uo_out[6];
+`ifdef GL_TEST
+    supply1 vpwr;
+    supply0 vgnd;
+`endif
     tt_um_jonahsaunders_flyover_detector dut (
 `ifdef GL_TEST
-        .VPWR(1'b1), .VGND(1'b0),
+        .VPWR(vpwr), .VGND(vgnd),
 `endif
         .clk(clk), .rst_n(rst_n), .ena(ena), .ui_in(ui_in), .uo_out(uo_out),
         .uio_in(uio_in), .uio_out(uio_out), .uio_oe(uio_oe)
