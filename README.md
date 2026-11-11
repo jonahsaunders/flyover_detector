@@ -8,6 +8,8 @@ tone and its second and fourth harmonics. Its streaming filter uses
 no external memory and starts attenuating after it has confirmed a fall.
 See the [chip datasheet source](docs/info.md) for wiring and bench tests.
 
+![Angled render of the routed Flyover Audio Filter SKY130 layout](assets/flyover-detector-chip-render.png)
+
 Run `make -C test` with Icarus Verilog and Python 3 installed. On Windows,
 put `iverilog` and `vvp` on PATH and run `python test/run.py`. The tests
 exercise I²S framing, signed PCM, bypass, reset, falling and rising sweeps,
