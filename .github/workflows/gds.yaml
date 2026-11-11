@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: Apache-2.0
+name: gds
+on: [push, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  gds:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Build GDS
+        uses: TinyTapeout/tt-gds-action@ttsky26e
+        with:
+          pdk: sky130A
+
+  precheck:
+    needs: gds
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Run Tiny Tapeout precheck
+        uses: TinyTapeout/tt-gds-action/precheck@ttsky26e
+
+  gl_test:
+    needs: gds
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Run gate-level tests
+        uses: TinyTapeout/tt-gds-action/gl_test@ttsky26e

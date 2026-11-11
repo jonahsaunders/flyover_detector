@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Apache-2.0
+name: docs
+on: [push, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Build datasheet
+        uses: TinyTapeout/tt-gds-action/docs@ttsky26e

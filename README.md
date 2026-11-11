@@ -1,5 +1,28 @@
 # Tang Nano 20K flyover audio filter
 
+## Tiny Tapeout chip
+
+The ASIC version targets Tiny Tapeout SKY130 (SKY26e) in a **2×2** tile.
+It uses the same 48 kHz Pmod I2S2 codec and attenuates a detected falling
+tone and its second and fourth harmonics. Its streaming filter uses
+no external memory and starts attenuating after it has confirmed a fall.
+See the [chip datasheet source](docs/info.md) for wiring and bench tests.
+
+Run `make -C test` with Icarus Verilog and Python 3 installed. On Windows,
+put `iverilog` and `vvp` on PATH and run `python test/run.py`. The tests
+exercise I²S framing, signed PCM, bypass, reset, falling and rising sweeps,
+and steady tones. The synthetic mix uses the same three harmonics and
+1,750 Hz control tone as the FPGA simulation.
+
+For fabrication, use the revision with a passing `gds` workflow (including
+precheck and gate-level simulation) and a passing `docs` workflow. The GDS
+job publishes the `tt_submission` artifact. Add this repository and select
+that revision in the [Tiny Tapeout submission portal](https://app.tinytapeout.com/projects/create).
+
+The Tiny Tapeout design, tests, datasheet source, metadata and workflows
+are licensed under [Apache-2.0](LICENSE). The build configuration and
+workflows are adapted from the [Tiny Tapeout SKY Verilog template](https://github.com/TinyTapeout/ttsky-verilog-template).
+
 ## About
 
 Aircraft noise in a soundtrack can reveal where it was recorded. Flyover Detector is a Tang Nano 20K FPGA prototype that detects and reduces the falling tones left by propeller aircraft and helicopters. It processes mono audio at 48 kHz and uses a 1.024-second buffer so it can edit the start of a detected flyover before sending the audio to a recorder or livestream. The Digilent Pmod I2S2 supplies the analog input and output.
